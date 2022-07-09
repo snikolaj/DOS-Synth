@@ -1,6 +1,14 @@
 eclipse.preferences.version=1
+encoding//Debug/debug.h=GBK
+encoding//NetLib/WCHNET.h=GBK
+encoding//NetLib/eth_driver.c=GBK
+encoding//NetLib/eth_driver.h=GBK
+encoding//NetLib/ethernet_helpers.c=GBK
+encoding//NetLib/ethernet_helpers.h=GBK
+encoding//NetLib/net_config.h=GBK
 encoding//Peripheral/inc/ch32v30x.h=GBK
 encoding//Peripheral/inc/ch32v30x_adc.h=GBK
+encoding//Peripheral/inc/ch32v30x_eth.h=GBK
 encoding//Peripheral/inc/ch32v30x_gpio.h=GBK
 encoding//Peripheral/inc/ch32v30x_rcc.h=GBK
 encoding//Peripheral/src/ch32v30x_adc.c=GBK

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>RT-Thread_test-1</name>
-	<comment/>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -25,8 +25,8 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1595986042669</id>
-			<name/>
+			<id>1657331867305</id>
+			<name></name>
 			<type>22</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
@@ -34,4 +34,10 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-3-PROJECT_LOC%7D/Users/Stefan/Desktop/EVT/EXAM/ETH</value>
+		</variable>
+	</variableList>
 </projectDescription>
