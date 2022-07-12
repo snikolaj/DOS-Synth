@@ -189,7 +189,7 @@ void ETH_MIIPinInit(void)
     define_O(GPIOB,GPIO_Pin_13);//txd1
     define_O(GPIOC,GPIO_Pin_2); //txd2
     define_O(GPIOB,GPIO_Pin_8); //txd3
-    /* RX组 */
+
     define_I(GPIOA,GPIO_Pin_1);/* PA1 RXC */
     define_I(GPIOA,GPIO_Pin_7);/* PA7 RXDV */
     define_I(GPIOC,GPIO_Pin_4);/* RXD0 */
@@ -600,7 +600,7 @@ void ETH_Init( uint8_t *macAddr )
     ETH_DMARxDescChainInit(DMARxDscrTab, MACRxBuf, ETH_RXBUFNB);
     pDMARxSet = DMARxDscrTab;
     pDMATxSet = DMATxDscrTab;
-    NVIC_EnableIRQ(ETH_IRQn);
+    //NVIC_EnableIRQ(ETH_IRQn);
 }
 
 /*********************************************************************

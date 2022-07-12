@@ -47,12 +47,7 @@ User/main.o: ../User/main.c \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drivers/pin.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rthw.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drivers/pin.h \
- ../User/headers/adc_helpers.h ../User/headers/analog_sensors.h \
- ../User/../NetLib/WCHNET.h ../User/../NetLib/net_config.h \
- ../User/../NetLib/eth_driver.h \
- C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_eth.h \
- ../User/../NetLib/WCHNET.h ../User/../NetLib/ethernet_helpers.h \
- ../User/../NetLib/eth_driver.h
+ ../User/headers/adc_helpers.h
 
 C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x.h:
 
@@ -151,19 +146,3 @@ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rthw.h:
 C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drivers/pin.h:
 
 ../User/headers/adc_helpers.h:
-
-../User/headers/analog_sensors.h:
-
-../User/../NetLib/WCHNET.h:
-
-../User/../NetLib/net_config.h:
-
-../User/../NetLib/eth_driver.h:
-
-C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_eth.h:
-
-../User/../NetLib/WCHNET.h:
-
-../User/../NetLib/ethernet_helpers.h:
-
-../User/../NetLib/eth_driver.h:

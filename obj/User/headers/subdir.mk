@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../User/headers/adc_helpers.c \
-../User/headers/analog_sensors.c 
+../User/headers/analog_sensors.c \
+../User/headers/nrf24.c 
 
 OBJS += \
 ./User/headers/adc_helpers.o \
-./User/headers/analog_sensors.o 
+./User/headers/analog_sensors.o \
+./User/headers/nrf24.o 
 
 C_DEPS += \
 ./User/headers/adc_helpers.d \
-./User/headers/analog_sensors.d 
+./User/headers/analog_sensors.d \
+./User/headers/nrf24.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -136,7 +136,7 @@ void WCHNET_HandleGlobalInt(void)
 
     intstat = WCHNET_GetGlobalInt();                              //get global interrupt flag
 
-    //printf("Global interrupt received: 0x%x\r\n", intstat);
+    printf("Global interrupt received: 0x%x\r\n", intstat);
 
     if (intstat & GINT_STAT_UNREACH)                              //Unreachable interrupt
     {
