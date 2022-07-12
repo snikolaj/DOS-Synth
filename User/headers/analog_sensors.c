@@ -3,8 +3,8 @@
 float temperature;
 float lightIntensity;
 
-uint8_t LDR_ADC_Channel = ADC_Channel_1;
-uint8_t MCP9701_ADC_Channel = ADC_Channel_2;
+const uint8_t LDR_ADC_Channel = ADC_Channel_1;
+const uint8_t MCP9701_ADC_Channel = ADC_Channel_2;
 
 void MCP9701_Get_Temperature(){
     // data and formulas from the MCP9701 datasheet and https://snikolaj.github.io/electronics-projects/2022/04/23/thermometer.html#formulas

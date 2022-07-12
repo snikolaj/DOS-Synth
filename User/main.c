@@ -6,6 +6,9 @@
 
 #include "drivers/pin.h"
 #include "headers/adc_helpers.h"
+#include "headers/inputs.h"
+
+static struct rt_timer PollTimer;
 
 void LED1_BLINK_INIT(void)
 {
@@ -54,41 +57,6 @@ void SWSPI_Init(){
      * using the WCH-provided functions to limit the GPIO speed
      * so as to work properly with the old TTL chips
      */
-}
-
-void Inputs_Init(){
-    GPIO_InitTypeDef GPIO_InitStructure={0};
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOD, &GPIO_InitStructure); // A (CD4051) - PD3
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOD, &GPIO_InitStructure); // B (CD4051) - PD4
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOD, &GPIO_InitStructure); // C (CD4051) - PD5
-
-    // connect analog input to PA1
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(GPIOD, &GPIO_InitStructure); // left button - PD1
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(GPIOD, &GPIO_InitStructure); // right button - PD2
 }
 
 
@@ -150,36 +118,16 @@ void YM3812_Test_Sequence(void){
 }
 
 void Read_Potentiometers_Debug(){
-    GPIO_SetBits(GPIOD, GPIO_Pin_5);
-
-    GPIO_ResetBits(GPIOD, GPIO_Pin_3);
-    GPIO_ResetBits(GPIOD, GPIO_Pin_4);
-    rt_thread_mdelay(10);
-    printf("Potentiometer 1: %d\r\n", Get_ADC_Val(ADC_Channel_1));
-
-    GPIO_ResetBits(GPIOD, GPIO_Pin_3);
-    GPIO_SetBits(GPIOD, GPIO_Pin_4);
-    rt_thread_mdelay(10);
-    printf("Potentiometer 2: %d\r\n", Get_ADC_Val(ADC_Channel_1));
-
-    GPIO_SetBits(GPIOD, GPIO_Pin_3);
-    GPIO_SetBits(GPIOD, GPIO_Pin_4);
-    rt_thread_mdelay(10);
-    printf("Potentiometer 3: %d\r\n", Get_ADC_Val(ADC_Channel_1));
-
-    GPIO_SetBits(GPIOD, GPIO_Pin_3);
-    GPIO_ResetBits(GPIOD, GPIO_Pin_4);
-    rt_thread_mdelay(10);
-    printf("Potentiometer 4: %d\r\n", Get_ADC_Val(ADC_Channel_1));
-
-    // delay is due to the fast switching speed of the CPU
-    // and high output impedance of the potentiometers leading to slow
-    // rise times in the opamp and discharge of stabilizing capacitors
+    Read_Potentiometers();
+    printf("Potentiometer 1: %d\r\n", pot1Val);
+    printf("Potentiometer 2: %d\r\n", pot2Val);
+    printf("Potentiometer 3: %d\r\n", pot3Val);
+    printf("Potentiometer 4: %d\r\n", pot4Val);
 }
 
 void Read_Buttons_Debug(){
-    printf("Left button value: %d\r\n", GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1));
-    printf("Right button value: %d\r\n", GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2));
+    printf("Left button value: %d\r\n", buttonLeft);
+    printf("Right button value: %d\r\n", buttonRight);
 }
 
 int main(void)
@@ -188,9 +136,12 @@ int main(void)
 	rt_kprintf(" SysClk: %dHz\r\n",SystemCoreClock);
     rt_kprintf(" www.wch.cn\r\n");
 
-    Inputs_Init();
     ADC_Function_Init();
     SWSPI_Init();
+    Inputs_Init();
+
+    rt_timer_init(&PollTimer, "Poll", Poll_Inputs, RT_NULL, 100, RT_TIMER_FLAG_PERIODIC);
+    rt_timer_start(&PollTimer);
 
 	while(1)
 	{
@@ -199,6 +150,7 @@ int main(void)
 	}
 }
 
+MSH_CMD_EXPORT(Poll_Inputs, poll inputs and call interrupts);
 MSH_CMD_EXPORT(Read_Buttons_Debug, read buttons);
 MSH_CMD_EXPORT(Read_Potentiometers_Debug, read potentiometers from CD4051);
 MSH_CMD_EXPORT(SWSPI_Write_Wrapper, write to SWSPI);
