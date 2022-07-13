@@ -2,13 +2,16 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include <rthw.h>
-#include <stdlib.h>
 
 #include "drivers/pin.h"
 #include "headers/adc_helpers.h"
 #include "headers/inputs.h"
+#include "headers/SWSPI.h"
+#include "headers/MIDI.h"
 
 static struct rt_timer PollTimer;
+
+
 
 void LED1_BLINK_INIT(void)
 {
@@ -20,60 +23,6 @@ void LED1_BLINK_INIT(void)
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
-
-void SWSPI_Init(){
-    GPIO_InitTypeDef GPIO_InitStructure={0};
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOE, &GPIO_InitStructure); // DATA - PE0
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOE, &GPIO_InitStructure); // CLOCK - PE1
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOE, &GPIO_InitStructure); // WR/CS - PE2
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOE, &GPIO_InitStructure); // A0 - PE3
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOE, &GPIO_InitStructure); // IC - PE4
-
-    /*
-     * using the WCH-provided functions to limit the GPIO speed
-     * so as to work properly with the old TTL chips
-     */
-}
-
-
-void SWSPI_Write(uint8_t val, GPIO_TypeDef *Output_Port, uint16_t Data_Pin, uint16_t Clock_Pin){
-    GPIO_ResetBits(Output_Port, Clock_Pin);
-
-    for(uint8_t i = 8; i > 0; i--){
-        GPIO_WriteBit(Output_Port, Data_Pin, (val >> (i - 1)) & 1);
-        GPIO_SetBits(Output_Port, Clock_Pin);
-        GPIO_ResetBits(Output_Port, Clock_Pin);
-    }
-
-}
-
-void SWSPI_Write_Wrapper(int argc, char** argv){
-    SWSPI_Write(atoi(argv[1]), GPIOE, GPIO_Pin_0, GPIO_Pin_1); // to be used in the command line
-}
 
 void YM3812_Reset(GPIO_TypeDef *Output_Port, uint16_t IC_Pin){
     // the IC pin needs to be held low for at least 80 cycles, or ~80us, per datasheet
@@ -91,12 +40,14 @@ void YM3812_Write(uint8_t YM_Data, uint8_t YM_Register, GPIO_TypeDef *Output_Por
     GPIO_ResetBits(Output_Port, WR_Pin);
     rt_thread_mdelay(1);
     GPIO_SetBits(Output_Port, WR_Pin);
+    rt_thread_mdelay(1);
 
     GPIO_SetBits(Output_Port, A0_Pin);
     SWSPI_Write(YM_Data, Output_Port, Data_Pin, Clock_Pin);
     GPIO_ResetBits(Output_Port, WR_Pin);
     rt_thread_mdelay(1);
     GPIO_SetBits(Output_Port, WR_Pin);
+    rt_thread_mdelay(1);
 }
 
 void YM3812_Write_Wrapper(int argc, char** argv){
@@ -130,8 +81,14 @@ void Read_Buttons_Debug(){
     printf("Right button value: %d\r\n", buttonRight);
 }
 
+
+
+
+
 int main(void)
 {
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+
     rt_kprintf("\r\n MCU: CH32V307\r\n");
 	rt_kprintf(" SysClk: %dHz\r\n",SystemCoreClock);
     rt_kprintf(" www.wch.cn\r\n");
@@ -139,16 +96,20 @@ int main(void)
     ADC_Function_Init();
     SWSPI_Init();
     Inputs_Init();
+    UART_Init();
 
     rt_timer_init(&PollTimer, "Poll", Poll_Inputs, RT_NULL, 100, RT_TIMER_FLAG_PERIODIC);
     rt_timer_start(&PollTimer);
 
 	while(1)
 	{
-        rt_thread_mdelay(1000);
-
+	    rt_kprintf("Active notes: %d\r\n", activeNotes);
+	    rt_thread_mdelay(1000);
 	}
 }
+
+
+
 
 MSH_CMD_EXPORT(Poll_Inputs, poll inputs and call interrupts);
 MSH_CMD_EXPORT(Read_Buttons_Debug, read buttons);

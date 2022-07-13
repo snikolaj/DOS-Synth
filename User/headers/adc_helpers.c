@@ -63,3 +63,7 @@ uint16_t Get_ADC_Val(uint8_t ADC_Input_Channel)
 float ADC_to_Voltage(uint16_t ADC_Result){
     return (float)(ADC_Result) / ADC_RESOLUTION * ADC_REFERENCE;
 }
+
+uint32_t Clamp(uint32_t val, uint32_t max, uint32_t scale){
+    return scale / (max / val);
+}

@@ -16,3 +16,4 @@ void ADC_Function_Init(void);
 uint16_t Apply_Calibration_Offset(uint16_t val);
 uint16_t Get_ADC_Val(uint8_t ADC_Input_Channel);
 float ADC_to_Voltage(uint16_t ADC_Result);
+uint32_t Clamp(uint32_t val, uint32_t max, uint32_t scale);
