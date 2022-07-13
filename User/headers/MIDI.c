@@ -5,7 +5,8 @@ uint8_t commandArray[3];
 uint8_t midi_index = 0;
 uint8_t midiCommandBytes = 3;
 
-uint8_t activeNotes = 0;
+void (*Note_On)(uint8_t, uint8_t);       // MIDI number, velocity
+void (*Note_Off)(uint8_t);               // MIDI number
 
 void USART3_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
@@ -42,6 +43,9 @@ void UART_Init(){
 
     USART_Init(USART3, &USART_InitStructure);
     USART_Cmd(USART3, ENABLE);
+
+    Note_On = Note_On_Debug;
+    Note_Off = Note_Off_Debug;
 }
 
 void MIDI_Handler(uint8_t Last_Byte){
@@ -75,16 +79,13 @@ void MIDI_Handler(uint8_t Last_Byte){
             {
                 case 0x90:
                     if(commandArray[2] > 0){
-                        activeNotes++;
-                        //rt_kprintf("Note on: %d\r\n", commandArray[1]);
+                        Note_On(commandArray[1], commandArray[2]);
                     }else{
-                        activeNotes--;
-                        //rt_kprintf("Note off: %d\r\n", commandArray[1]);
+                        Note_Off(commandArray[1]);
                     }
                     break;
                 case 0x80:
-                    activeNotes++;
-                    //rt_kprintf("Note off: %d\r\n", commandArray[1]);
+                    Note_Off(commandArray[1]);
                     break;
             }
         }
@@ -96,4 +97,11 @@ void USART3_IRQHandler(void)
         MIDI_Handler(USART_ReceiveData(USART3));
         midi_index++;
     }
+}
+
+void Note_On_Debug(uint8_t a1, uint8_t a2){
+    rt_kprintf("Note on: %d with velocity %d\r\n", a1, a2);
+}
+void Note_Off_Debug(uint8_t a1){
+    rt_kprintf("Note off: %d\r\n", a1);
 }

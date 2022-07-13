@@ -15,6 +15,7 @@ RM := rm -rf
 -include rtthread/components/drivers/misc/subdir.mk
 -include rtthread/subdir.mk
 -include drivers/subdir.mk
+-include User/headers/ILI9341/subdir.mk
 -include User/headers/subdir.mk
 -include User/subdir.mk
 -include Startup/subdir.mk

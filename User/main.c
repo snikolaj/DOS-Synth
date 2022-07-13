@@ -8,6 +8,7 @@
 #include "headers/inputs.h"
 #include "headers/SWSPI.h"
 #include "headers/MIDI.h"
+#include "headers/ILI9341/ILI9341.h"
 
 static struct rt_timer PollTimer;
 
@@ -81,7 +82,9 @@ void Read_Buttons_Debug(){
     printf("Right button value: %d\r\n", buttonRight);
 }
 
-
+void Test_Display(){
+    ILI9341_FillScreen(ILI9341_BLACK);
+}
 
 
 
@@ -93,6 +96,11 @@ int main(void)
 	rt_kprintf(" SysClk: %dHz\r\n",SystemCoreClock);
     rt_kprintf(" www.wch.cn\r\n");
 
+    ILI9341_GPIO_Init();
+    ILI9341_Unselect();
+    ILI9341_SPI_Init();
+    ILI9341_Init();
+
     ADC_Function_Init();
     SWSPI_Init();
     Inputs_Init();
@@ -103,14 +111,13 @@ int main(void)
 
 	while(1)
 	{
-	    rt_kprintf("Active notes: %d\r\n", activeNotes);
 	    rt_thread_mdelay(1000);
 	}
 }
 
 
 
-
+MSH_CMD_EXPORT(Test_Display, test ILI9341);
 MSH_CMD_EXPORT(Poll_Inputs, poll inputs and call interrupts);
 MSH_CMD_EXPORT(Read_Buttons_Debug, read buttons);
 MSH_CMD_EXPORT(Read_Potentiometers_Debug, read potentiometers from CD4051);

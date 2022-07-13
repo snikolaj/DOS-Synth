@@ -28,6 +28,7 @@ NetLib \
 Peripheral/src \
 Startup \
 User \
+User/headers/ILI9341 \
 User/headers \
 drivers \
 rtthread \
