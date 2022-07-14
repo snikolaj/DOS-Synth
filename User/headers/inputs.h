@@ -6,7 +6,7 @@
 
 #define BUTTON_PRESSED 0
 #define BUTTON_UP 1
-#define POTENTIOMETER_INTERRUPT_DIFFERENCE 100
+#define POTENTIOMETER_INTERRUPT_DIFFERENCE 25
 
 extern uint16_t pot1Val;
 extern uint16_t pot2Val;

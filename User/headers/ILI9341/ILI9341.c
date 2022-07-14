@@ -7,13 +7,7 @@ uint16_t ILI9341_SPI_PORT = 0;
 uint16_t HAL_MAX_DELAY = 0;
 
 // IMPLEMENTATION WRAPPER FUNCTIONS FOR THE STM32 HAL
-void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t Pin_Number, uint8_t val){
-    GPIO_WriteBit(GPIOx, Pin_Number, val);
-}
 
-void HAL_Delay(uint32_t ms){
-    rt_thread_mdelay(ms);
-}
 void ILI9341_GPIO_Init(){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
@@ -28,12 +22,17 @@ void ILI9341_GPIO_Init(){
     GPIO_InitStructure.GPIO_Pin = ILI9341_CS_Pin;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(ILI9341_CS_GPIO_Port, &GPIO_InitStructure);       // CS - set to PA10
+    GPIO_Init(ILI9341_CS_GPIO_Port, &GPIO_InitStructure);       // CS - set to PA3
 
     GPIO_InitStructure.GPIO_Pin = ILI9341_DC_Pin;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_Init(ILI9341_DC_GPIO_Port, &GPIO_InitStructure);       // DC - set to PA9
+    GPIO_Init(ILI9341_DC_GPIO_Port, &GPIO_InitStructure);       // DC - set to PA4
+
+    GPIO_InitStructure.GPIO_Pin = ILI9341_LED_Pin;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(ILI9341_LED_GPIO_Port, &GPIO_InitStructure);       // DC - set to PA4
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -65,7 +64,7 @@ void ILI9341_SPI_Init(){
     SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_64;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
     SPI_InitStructure.SPI_CRCPolynomial = 7;
     SPI_Init(SPI1, &SPI_InitStructure);
@@ -80,8 +79,10 @@ void HAL_SPI_Transmit(uint16_t *discard1, uint8_t *data, uint16_t data_length, u
             goto startloop;
         }
         SPI_I2S_SendData(SPI1, data[i]);
-        waitfortransmission:
-        rt_thread_mdelay(1);
+        for(uint16_t i = 0; i < 10; i++){
+            asm("nop;");
+        }
+
     }
 }
 
@@ -94,9 +95,17 @@ void ILI9341_Unselect() {
     GPIO_SetBits(ILI9341_CS_GPIO_Port, ILI9341_CS_Pin);
 }
 
+void ILI9341_TurnOn(){
+    GPIO_ResetBits(ILI9341_LED_GPIO_Port, ILI9341_LED_Pin);
+}
+
+void ILI9341_TurnOff(){
+    GPIO_SetBits(ILI9341_LED_GPIO_Port, ILI9341_LED_Pin);
+}
+
 static void ILI9341_Reset() {
     GPIO_ResetBits(ILI9341_RES_GPIO_Port, ILI9341_RES_Pin);
-    HAL_Delay(5);
+    rt_thread_mdelay(5);
     GPIO_SetBits(ILI9341_RES_GPIO_Port, ILI9341_RES_Pin);
 }
 
@@ -136,33 +145,12 @@ void ILI9341_Init() {
 
     // SOFTWARE RESET
     ILI9341_WriteCommand(0x01);
-    HAL_Delay(1000);
-
-    // POWER CONTROL A
-    ILI9341_WriteCommand(0xCB);
-    {
-        uint8_t data[] = { 0x39, 0x2C, 0x00, 0x34, 0x02 };
-        ILI9341_WriteData(data, sizeof(data));
-    }
+    rt_thread_mdelay(1000);
 
     // POWER CONTROL B
     ILI9341_WriteCommand(0xCF);
     {
         uint8_t data[] = { 0x00, 0xC1, 0x30 };
-        ILI9341_WriteData(data, sizeof(data));
-    }
-
-    // DRIVER TIMING CONTROL A
-    ILI9341_WriteCommand(0xE8);
-    {
-        uint8_t data[] = { 0x85, 0x00, 0x78 };
-        ILI9341_WriteData(data, sizeof(data));
-    }
-
-    // DRIVER TIMING CONTROL B
-    ILI9341_WriteCommand(0xEA);
-    {
-        uint8_t data[] = { 0x00, 0x00 };
         ILI9341_WriteData(data, sizeof(data));
     }
 
@@ -173,6 +161,20 @@ void ILI9341_Init() {
         ILI9341_WriteData(data, sizeof(data));
     }
 
+    // DRIVER TIMING CONTROL A
+    ILI9341_WriteCommand(0xE8);
+    {
+        uint8_t data[] = { 0x85, 0x10, 0x7A };
+        ILI9341_WriteData(data, sizeof(data));
+    }
+
+    // POWER CONTROL A
+    ILI9341_WriteCommand(0xCB);
+    {
+        uint8_t data[] = { 0x39, 0x2C, 0x00, 0x34, 0x02 };
+        ILI9341_WriteData(data, sizeof(data));
+    }
+
     // PUMP RATIO CONTROL
     ILI9341_WriteCommand(0xF7);
     {
@@ -180,31 +182,38 @@ void ILI9341_Init() {
         ILI9341_WriteData(data, sizeof(data));
     }
 
+    // DRIVER TIMING CONTROL B
+    ILI9341_WriteCommand(0xEA);
+    {
+        uint8_t data[] = { 0x00, 0x00 };
+        ILI9341_WriteData(data, sizeof(data));
+    }
+
     // POWER CONTROL,VRH[5:0]
     ILI9341_WriteCommand(0xC0);
     {
-        uint8_t data[] = { 0x23 };
+        uint8_t data[] = { 0b0010001 };
         ILI9341_WriteData(data, sizeof(data));
     }
 
     // POWER CONTROL,SAP[2:0];BT[3:0]
     ILI9341_WriteCommand(0xC1);
     {
-        uint8_t data[] = { 0x10 };
+        uint8_t data[] = { 0x01 };
         ILI9341_WriteData(data, sizeof(data));
     }
 
     // VCM CONTROL
     ILI9341_WriteCommand(0xC5);
     {
-        uint8_t data[] = { 0x3E, 0x28 };
+        uint8_t data[] = { 0x30, 0x30 };
         ILI9341_WriteData(data, sizeof(data));
     }
 
     // VCM CONTROL 2
     ILI9341_WriteCommand(0xC7);
     {
-        uint8_t data[] = { 0x86 };
+        uint8_t data[] = { 0xB7 };
         ILI9341_WriteData(data, sizeof(data));
     }
 
@@ -268,7 +277,7 @@ void ILI9341_Init() {
 
     // EXIT SLEEP
     ILI9341_WriteCommand(0x11);
-    HAL_Delay(120);
+    rt_thread_mdelay(120);
 
     // TURN ON DISPLAY
     ILI9341_WriteCommand(0x29);
@@ -279,8 +288,6 @@ void ILI9341_Init() {
         uint8_t data[] = { ILI9341_ROTATION };
         ILI9341_WriteData(data, sizeof(data));
     }
-
-    HAL_Delay(1);
 
     ILI9341_Unselect();
 }
@@ -321,9 +328,17 @@ void ILI9341_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, 
     ILI9341_Select();
 
     while(*str) {
+        if(*str == '\n'){
+            rt_kprintf("newline\r\n");
+            y += font.height;
+            x = 0;
+            str++;
+        }
+
         if(x + font.width >= ILI9341_WIDTH) {
             x = 0;
             y += font.height;
+
             if(y + font.height >= ILI9341_HEIGHT) {
                 break;
             }
@@ -353,7 +368,7 @@ void ILI9341_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint1
     ILI9341_SetAddressWindow(x, y, x+w-1, y+h-1);
 
     uint8_t data[] = { color >> 8, color & 0xFF };
-    HAL_GPIO_WritePin(ILI9341_DC_GPIO_Port, ILI9341_DC_Pin, GPIO_PIN_SET);
+    GPIO_SetBits(ILI9341_DC_GPIO_Port, ILI9341_DC_Pin);
     for(y = h; y > 0; y--) {
         for(x = w; x > 0; x--) {
             HAL_SPI_Transmit(&ILI9341_SPI_PORT, data, sizeof(data), HAL_MAX_DELAY);

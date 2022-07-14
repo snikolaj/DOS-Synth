@@ -65,5 +65,5 @@ float ADC_to_Voltage(uint16_t ADC_Result){
 }
 
 uint32_t Clamp(uint32_t val, uint32_t max, uint32_t scale){
-    return scale / (max / val);
+    return (int)(scale * ((float)val / (float)max));
 }

@@ -9,6 +9,7 @@ C_SRCS += \
 ../User/headers/adc_helpers.c \
 ../User/headers/analog_sensors.c \
 ../User/headers/inputs.c \
+../User/headers/menu.c \
 ../User/headers/nrf24.c 
 
 OBJS += \
@@ -17,6 +18,7 @@ OBJS += \
 ./User/headers/adc_helpers.o \
 ./User/headers/analog_sensors.o \
 ./User/headers/inputs.o \
+./User/headers/menu.o \
 ./User/headers/nrf24.o 
 
 C_DEPS += \
@@ -25,6 +27,7 @@ C_DEPS += \
 ./User/headers/adc_helpers.d \
 ./User/headers/analog_sensors.d \
 ./User/headers/inputs.d \
+./User/headers/menu.d \
 ./User/headers/nrf24.d 
 
 

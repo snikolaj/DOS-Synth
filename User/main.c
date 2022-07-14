@@ -9,10 +9,23 @@
 #include "headers/SWSPI.h"
 #include "headers/MIDI.h"
 #include "headers/ILI9341/ILI9341.h"
+#include "headers/menu.h"
 
 static struct rt_timer PollTimer;
 
+void Change_Sustain(){
+    sustain = Clamp(pot1Val, ADC_RESOLUTION, 16);
+    rt_kprintf("Sustain is now: %d\r\n", sustain);
+    Draw_Sustain();
+}
 
+void Setup_Inputs(){
+    Inputs_Init();
+    Button_Left_Interrupt_Handler = Handle_Button_Left;
+    Button_Right_Interrupt_Handler = Handle_Button_Right;
+
+    Pot1_Interrupt_Handler = Change_Sustain;
+}
 
 void LED1_BLINK_INIT(void)
 {
@@ -84,6 +97,8 @@ void Read_Buttons_Debug(){
 
 void Test_Display(){
     ILI9341_FillScreen(ILI9341_BLACK);
+    ILI9341_WriteString(0, 0, "Welcome to the \nYM3812 synth", Font_11x18, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50, "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16", Font_7x10, DARKCYAN, ILI9341_BLACK);
 }
 
 
@@ -97,13 +112,18 @@ int main(void)
     rt_kprintf(" www.wch.cn\r\n");
 
     ILI9341_GPIO_Init();
+    ILI9341_TurnOff();
     ILI9341_Unselect();
     ILI9341_SPI_Init();
     ILI9341_Init();
+    ILI9341_FillScreen(ILI9341_BLACK);
+    ILI9341_TurnOn();
+
+    Test_Display();
 
     ADC_Function_Init();
     SWSPI_Init();
-    Inputs_Init();
+    Setup_Inputs();
     UART_Init();
 
     rt_timer_init(&PollTimer, "Poll", Poll_Inputs, RT_NULL, 100, RT_TIMER_FLAG_PERIODIC);
@@ -112,6 +132,7 @@ int main(void)
 	while(1)
 	{
 	    rt_thread_mdelay(1000);
+	    Update_Menu();
 	}
 }
 

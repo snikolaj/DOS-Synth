@@ -19,15 +19,20 @@
 
 #define ILI9341_RES_Pin       GPIO_Pin_8
 #define ILI9341_RES_GPIO_Port GPIOA
-#define ILI9341_CS_Pin        GPIO_Pin_2
+#define ILI9341_CS_Pin        GPIO_Pin_3
 #define ILI9341_CS_GPIO_Port  GPIOA
 #define ILI9341_DC_Pin        GPIO_Pin_4
 #define ILI9341_DC_GPIO_Port  GPIOA
+#define ILI9341_LED_Pin       GPIO_Pin_2
+#define ILI9341_LED_GPIO_Port GPIOA
+
 
 // default orientation
+/*
 #define ILI9341_WIDTH  240
 #define ILI9341_HEIGHT 320
 #define ILI9341_ROTATION (ILI9341_MADCTL_MX | ILI9341_MADCTL_BGR)
+*/
 
 // rotate right
 /*
@@ -37,11 +42,11 @@
 */
 
 // rotate left
-/*
+
 #define ILI9341_WIDTH  320
 #define ILI9341_HEIGHT 240
 #define ILI9341_ROTATION (ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR)
-*/
+
 
 // upside down
 /*
@@ -63,12 +68,18 @@
 #define ILI9341_WHITE   0xFFFF
 #define ILI9341_COLOR565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | ((b & 0xF8) >> 3))
 
+#define DARKBLUE        0x0176
+#define PURPLE          0x501F
+#define DARKCYAN        0x0596
+
+
+
 // ADDED FOR STM32 COMPATIBILITY
-void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t Pin_Number, uint8_t val);
-void HAL_Delay(uint32_t ms);
 void ILI9341_SPI_Init();
 void ILI9341_GPIO_Init();
 
+void ILI9341_TurnOn();
+void ILI9341_TurnOff();
 
 // call before initializing any SPI devices
 void ILI9341_Unselect();
