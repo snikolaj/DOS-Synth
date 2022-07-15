@@ -48,9 +48,9 @@ User/main.o: ../User/main.c \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rthw.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drivers/pin.h \
  ../User/headers/adc_helpers.h ../User/headers/inputs.h \
- ../User/headers/SWSPI.h ../User/headers/MIDI.h \
- ../User/headers/ILI9341/ILI9341.h ../User/headers/ILI9341/fonts.h \
- ../User/headers/menu.h
+ ../User/headers/MIDI.h ../User/headers/ILI9341/ILI9341.h \
+ ../User/headers/ILI9341/fonts.h ../User/headers/menu.h \
+ ../User/headers/YM3812/OPL2.h
 
 C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x.h:
 
@@ -152,8 +152,6 @@ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drive
 
 ../User/headers/inputs.h:
 
-../User/headers/SWSPI.h:
-
 ../User/headers/MIDI.h:
 
 ../User/headers/ILI9341/ILI9341.h:
@@ -161,3 +159,5 @@ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\drivers\include/drive
 ../User/headers/ILI9341/fonts.h:
 
 ../User/headers/menu.h:
+
+../User/headers/YM3812/OPL2.h:

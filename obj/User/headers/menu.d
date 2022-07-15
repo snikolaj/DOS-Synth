@@ -36,7 +36,7 @@ User/headers/menu.o: ../User/headers/menu.c ../User/headers/menu.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtservice.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtm.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\finsh/finsh_api.h \
- ../User/headers/inputs.h ../User/headers/adc_helpers.h
+ ../User/headers/adc_helpers.h ../User/headers/inputs.h
 
 ../User/headers/menu.h:
 
@@ -116,6 +116,6 @@ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtm.h:
 
 C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\finsh/finsh_api.h:
 
-../User/headers/inputs.h:
-
 ../User/headers/adc_helpers.h:
+
+../User/headers/inputs.h:

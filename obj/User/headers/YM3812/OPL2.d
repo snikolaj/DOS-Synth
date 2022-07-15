@@ -1,4 +1,5 @@
-User/headers/SWSPI.o: ../User/headers/SWSPI.c ../User/headers/SWSPI.h \
+User/headers/YM3812/OPL2.o: ../User/headers/YM3812/OPL2.c \
+ ../User/headers/YM3812/OPL2.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\Core/core_riscv.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\User/system_ch32v30x.h \
@@ -27,9 +28,18 @@ User/headers/SWSPI.o: ../User/headers/SWSPI.c ../User/headers/SWSPI.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_wwdg.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\User/ch32v30x_it.h \
  C:\MRS_DATA\workspace\RT-Thread_test-1\Debug/debug.h \
- C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_misc.h
+ C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_misc.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtthread.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread/rtconfig.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtdebug.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtdef.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtservice.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtm.h \
+ C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\finsh/finsh_api.h \
+ ../User/headers/YM3812/../adc_helpers.h \
+ ../User/headers/YM3812/instruments.h
 
-../User/headers/SWSPI.h:
+../User/headers/YM3812/OPL2.h:
 
 C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x.h:
 
@@ -88,3 +98,21 @@ C:\MRS_DATA\workspace\RT-Thread_test-1\User/ch32v30x_it.h:
 C:\MRS_DATA\workspace\RT-Thread_test-1\Debug/debug.h:
 
 C:\MRS_DATA\workspace\RT-Thread_test-1\Peripheral\inc/ch32v30x_misc.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtthread.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread/rtconfig.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtdebug.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtdef.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtservice.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\include/rtm.h:
+
+C:\MRS_DATA\workspace\RT-Thread_test-1\rtthread\components\finsh/finsh_api.h:
+
+../User/headers/YM3812/../adc_helpers.h:
+
+../User/headers/YM3812/instruments.h:

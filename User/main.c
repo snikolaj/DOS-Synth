@@ -6,25 +6,202 @@
 #include "drivers/pin.h"
 #include "headers/adc_helpers.h"
 #include "headers/inputs.h"
-#include "headers/SWSPI.h"
 #include "headers/MIDI.h"
 #include "headers/ILI9341/ILI9341.h"
 #include "headers/menu.h"
+#include "headers/YM3812/OPL2.h"
+
 
 static struct rt_timer PollTimer;
 
-void Change_Sustain(){
-    sustain = Clamp(pot1Val, ADC_RESOLUTION, 16);
-    rt_kprintf("Sustain is now: %d\r\n", sustain);
-    Draw_Sustain();
+
+// ================================= FIRST MENU PAGE  ========================================
+void Draw_Operator1_Attack(){
+    Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getAttack(0, OPERATOR1), 16);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Attack", Font_7x10, DARKBLUE, ILI9341_BLACK);
 }
+
+void Change_Operator1_Attack(){
+    uint8_t Clamped_Val = Clamp(pot1Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setAttack(i, OPERATOR1, Clamped_Val);
+    }
+    Draw_Operator1_Attack();
+}
+
+void Draw_Operator1_Decay(){
+    Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDecay(0, OPERATOR1), 16);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Decay", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator1_Decay(){
+    uint8_t Clamped_Val = Clamp(pot2Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setDecay(i, OPERATOR1, Clamped_Val);
+    }
+    Draw_Operator1_Decay();
+}
+
+void Draw_Operator1_Sustain(){
+    Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getSustain(0, OPERATOR1), 16);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Sustain", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator1_Sustain(){
+    uint8_t Clamped_Val = Clamp(pot3Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setSustain(i, OPERATOR1, Clamped_Val);
+    }
+    Draw_Operator1_Sustain();
+}
+
+void Draw_Operator1_Release(){
+    Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getRelease(0, OPERATOR1), 16);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Release", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator1_Release(){
+    uint8_t Clamped_Val = Clamp(pot4Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setRelease(i, OPERATOR1, Clamped_Val);
+    }
+    Draw_Operator1_Release();
+}
+
+
+// ================================= SECOND MENU PAGE  ========================================
+void Draw_Operator2_Attack(){
+    Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getAttack(0, OPERATOR2), 16);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Attack", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator2_Attack(){
+    uint8_t Clamped_Val = Clamp(pot1Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setAttack(i, OPERATOR2, Clamped_Val);
+    }
+    Draw_Operator2_Attack();
+}
+
+void Draw_Operator2_Decay(){
+    Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDecay(0, OPERATOR2), 16);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Decay", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator2_Decay(){
+    uint8_t Clamped_Val = Clamp(pot2Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setDecay(i, OPERATOR2, Clamped_Val);
+    }
+    Draw_Operator2_Decay();
+}
+
+void Draw_Operator2_Sustain(){
+    Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getSustain(0, OPERATOR2), 16);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Sustain", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator2_Sustain(){
+    uint8_t Clamped_Val = Clamp(pot3Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setSustain(i, OPERATOR2, Clamped_Val);
+    }
+    Draw_Operator2_Sustain();
+}
+
+void Draw_Operator2_Release(){
+    Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getRelease(0, OPERATOR2), 16);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Release", Font_7x10, DARKBLUE, ILI9341_BLACK);
+}
+
+void Change_Operator2_Release(){
+    uint8_t Clamped_Val = Clamp(pot4Val, ADC_RESOLUTION, 16);
+    for(uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++){
+        setRelease(i, OPERATOR2, Clamped_Val);
+    }
+    Draw_Operator2_Release();
+}
+
+void Initialize_Menu_Pages(){
+    Initialize_Menu();
+
+    Main_Menu[0].Slider1_Draw = Draw_Operator1_Attack;
+    Main_Menu[0].Pot1_Slider = Change_Operator1_Attack;
+
+    Main_Menu[0].Slider2_Draw = Draw_Operator1_Decay;
+    Main_Menu[0].Pot2_Slider = Change_Operator1_Decay;
+
+    Main_Menu[0].Slider3_Draw = Draw_Operator1_Sustain;
+    Main_Menu[0].Pot3_Slider = Change_Operator1_Sustain;
+
+    Main_Menu[0].Slider4_Draw = Draw_Operator1_Release;
+    Main_Menu[0].Pot4_Slider = Change_Operator1_Release;
+
+    Main_Menu[1].Slider1_Draw = Draw_Operator2_Attack;
+    Main_Menu[1].Pot1_Slider = Change_Operator2_Attack;
+
+    Main_Menu[1].Slider2_Draw = Draw_Operator2_Decay;
+    Main_Menu[1].Pot2_Slider = Change_Operator2_Decay;
+
+    Main_Menu[1].Slider3_Draw = Draw_Operator2_Sustain;
+    Main_Menu[1].Pot3_Slider = Change_Operator2_Sustain;
+
+    Main_Menu[1].Slider4_Draw = Draw_Operator2_Release;
+    Main_Menu[1].Pot4_Slider = Change_Operator2_Release;
+
+    Main_Menu[Menu_Index].Slider1_Draw();
+    Main_Menu[Menu_Index].Slider2_Draw();
+    Main_Menu[Menu_Index].Slider3_Draw();
+    Main_Menu[Menu_Index].Slider4_Draw();
+}
+
+void Handle_Button_Left(){
+    if(Menu_Index == 0){
+        Menu_Index = MENU_PAGES - 1;
+    }else{
+        Menu_Index--;
+    }
+
+    Pot1_Interrupt_Handler = Main_Menu[Menu_Index].Pot1_Slider;
+    Pot2_Interrupt_Handler = Main_Menu[Menu_Index].Pot2_Slider;
+    Pot3_Interrupt_Handler = Main_Menu[Menu_Index].Pot3_Slider;
+    Pot4_Interrupt_Handler = Main_Menu[Menu_Index].Pot4_Slider;
+
+    Main_Menu[Menu_Index].Slider1_Draw();
+    Main_Menu[Menu_Index].Slider2_Draw();
+    Main_Menu[Menu_Index].Slider3_Draw();
+    Main_Menu[Menu_Index].Slider4_Draw();
+
+    rt_kprintf("Current menu index: %d\r\n", Menu_Index);
+}
+
+void Handle_Button_Right(){
+    if(Menu_Index == (MENU_PAGES - 1)){
+        Menu_Index = 0;
+    }else{
+        Menu_Index++;
+    }
+
+    Pot1_Interrupt_Handler = Main_Menu[Menu_Index].Pot1_Slider;
+    Pot2_Interrupt_Handler = Main_Menu[Menu_Index].Pot2_Slider;
+    Pot3_Interrupt_Handler = Main_Menu[Menu_Index].Pot3_Slider;
+    Pot4_Interrupt_Handler = Main_Menu[Menu_Index].Pot4_Slider;
+
+    Main_Menu[Menu_Index].Slider1_Draw();
+    Main_Menu[Menu_Index].Slider2_Draw();
+    Main_Menu[Menu_Index].Slider3_Draw();
+    Main_Menu[Menu_Index].Slider4_Draw();
+
+
+    rt_kprintf("Current menu index: %d\r\n", Menu_Index);
+}
+
+
 
 void Setup_Inputs(){
     Inputs_Init();
     Button_Left_Interrupt_Handler = Handle_Button_Left;
     Button_Right_Interrupt_Handler = Handle_Button_Right;
-
-    Pot1_Interrupt_Handler = Change_Sustain;
 }
 
 void LED1_BLINK_INIT(void)
@@ -37,49 +214,22 @@ void LED1_BLINK_INIT(void)
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
-
-void YM3812_Reset(GPIO_TypeDef *Output_Port, uint16_t IC_Pin){
-    // the IC pin needs to be held low for at least 80 cycles, or ~80us, per datasheet
-
-    GPIO_ResetBits(Output_Port, IC_Pin);
-    rt_thread_mdelay(1);
-    GPIO_SetBits(Output_Port, IC_Pin);
-}
-
-void YM3812_Write(uint8_t YM_Data, uint8_t YM_Register, GPIO_TypeDef *Output_Port, uint16_t Data_Pin, uint16_t Clock_Pin, uint16_t WR_Pin, uint16_t A0_Pin){
-    GPIO_SetBits(Output_Port, WR_Pin);
-
-    GPIO_ResetBits(Output_Port, A0_Pin);                                // address needs to be low to input register
-    SWSPI_Write(YM_Register, Output_Port, Data_Pin, Clock_Pin);
-    GPIO_ResetBits(Output_Port, WR_Pin);
-    rt_thread_mdelay(1);
-    GPIO_SetBits(Output_Port, WR_Pin);
-    rt_thread_mdelay(1);
-
-    GPIO_SetBits(Output_Port, A0_Pin);
-    SWSPI_Write(YM_Data, Output_Port, Data_Pin, Clock_Pin);
-    GPIO_ResetBits(Output_Port, WR_Pin);
-    rt_thread_mdelay(1);
-    GPIO_SetBits(Output_Port, WR_Pin);
-    rt_thread_mdelay(1);
-}
-
 void YM3812_Write_Wrapper(int argc, char** argv){
-    YM3812_Write(atoi(argv[1]), atoi(argv[2]), GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
+    YM3812_Write(atoi(argv[1]), atoi(argv[2]));
 }
 
 void YM3812_Test_Sequence(void){
     YM3812_Reset(GPIOE, GPIO_Pin_4);
-    YM3812_Write(0x01, 0x20, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x10, 0x40, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0xF0, 0x60, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x77, 0x80, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x98, 0xA0, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x01, 0x23, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x00, 0x43, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0xF0, 0x63, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x77, 0x83, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
-    YM3812_Write(0x31, 0xB0, GPIOE, GPIO_Pin_0, GPIO_Pin_1, GPIO_Pin_2, GPIO_Pin_3);
+    YM3812_Write(0x20, 0x01);
+    YM3812_Write(0x40, 0x10);
+    YM3812_Write(0x60, 0xF0);
+    YM3812_Write(0x80, 0x77);
+    YM3812_Write(0xA0, 0x98);
+    YM3812_Write(0x23, 0x01);
+    YM3812_Write(0x43, 0x00);
+    YM3812_Write(0x63, 0xF0);
+    YM3812_Write(0x83, 0x77);
+    YM3812_Write(0xB0, 0x31);
 }
 
 void Read_Potentiometers_Debug(){
@@ -97,11 +247,8 @@ void Read_Buttons_Debug(){
 
 void Test_Display(){
     ILI9341_FillScreen(ILI9341_BLACK);
-    ILI9341_WriteString(0, 0, "Welcome to the \nYM3812 synth", Font_11x18, DARKBLUE, ILI9341_BLACK);
-    ILI9341_WriteString(0, 50, "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16", Font_7x10, DARKCYAN, ILI9341_BLACK);
+    ILI9341_WriteString(0, 0, "Welcome to the YM3812 synth", Font_11x18, DARKBLUE, ILI9341_BLACK);
 }
-
-
 
 int main(void)
 {
@@ -121,10 +268,17 @@ int main(void)
 
     Test_Display();
 
+    YM3812_Begin();
+
+    Initialize_Menu_Pages();
     ADC_Function_Init();
-    SWSPI_Init();
     Setup_Inputs();
     UART_Init();
+
+
+
+    Note_On = MIDI_Note_On;
+    Note_Off = MIDI_Note_Off;
 
     rt_timer_init(&PollTimer, "Poll", Poll_Inputs, RT_NULL, 100, RT_TIMER_FLAG_PERIODIC);
     rt_timer_start(&PollTimer);
@@ -132,13 +286,11 @@ int main(void)
 	while(1)
 	{
 	    rt_thread_mdelay(1000);
-	    Update_Menu();
+	    //Update_Menu();
 	}
 }
 
 
-
-MSH_CMD_EXPORT(Test_Display, test ILI9341);
 MSH_CMD_EXPORT(Poll_Inputs, poll inputs and call interrupts);
 MSH_CMD_EXPORT(Read_Buttons_Debug, read buttons);
 MSH_CMD_EXPORT(Read_Potentiometers_Debug, read potentiometers from CD4051);

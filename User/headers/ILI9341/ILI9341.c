@@ -79,6 +79,8 @@ void HAL_SPI_Transmit(uint16_t *discard1, uint8_t *data, uint16_t data_length, u
             goto startloop;
         }
         SPI_I2S_SendData(SPI1, data[i]);
+
+        // comes out to just around ~300ns
         for(uint16_t i = 0; i < 10; i++){
             asm("nop;");
         }
@@ -329,10 +331,13 @@ void ILI9341_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, 
 
     while(*str) {
         if(*str == '\n'){
-            rt_kprintf("newline\r\n");
             y += font.height;
             x = 0;
             str++;
+        }
+
+        if(*str == '\0'){
+            break;
         }
 
         if(x + font.width >= ILI9341_WIDTH) {
@@ -354,6 +359,88 @@ void ILI9341_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, 
         x += font.width;
         str++;
     }
+
+    ILI9341_Unselect();
+}
+
+void ILI9341_WriteString_Horizontal(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor){
+    ILI9341_Select();
+
+    uint16_t original_y = y;
+
+    while(*str){
+        if(*str == '\n'){
+            x += font.width;
+            y = original_y;
+            str++;
+        }
+
+        if(*str == '\0'){
+            break;
+        }
+
+        if(y + font.height >= ILI9341_HEIGHT){
+            y = original_y;
+            x += font.width;
+
+            if(x + font.width >= ILI9341_HEIGHT){
+                break;
+            }
+
+            if(*str == ' ') {
+                // skip spaces in the beginning of the new line
+                str++;
+                continue;
+            }
+        }
+
+        ILI9341_WriteChar(x, y, *str, font, color, bgcolor);
+        y += font.height;
+        str++;
+    }
+
+
+
+    ILI9341_Unselect();
+}
+
+void ILI9341_WriteString_Horizontal_Backwards(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor){
+    ILI9341_Select();
+
+    uint16_t original_y = y;
+
+    while(*str){
+        if(*str == '\n'){
+            x += font.width;
+            y = original_y;
+            str++;
+        }
+
+        if(*str == '\0'){
+            break;
+        }
+
+        if(y - font.height >= ILI9341_HEIGHT){
+            y = original_y;
+            x += font.width;
+
+            if(x + font.width >= ILI9341_HEIGHT){
+                break;
+            }
+
+            if(*str == ' ') {
+                // skip spaces in the beginning of the new line
+                str++;
+                continue;
+            }
+        }
+
+        ILI9341_WriteChar(x, y, *str, font, color, bgcolor);
+        y -= font.height;
+        str++;
+    }
+
+
 
     ILI9341_Unselect();
 }

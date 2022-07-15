@@ -30,6 +30,7 @@ Startup \
 User \
 User/headers/ILI9341 \
 User/headers \
+User/headers/YM3812 \
 drivers \
 rtthread \
 rtthread/components/drivers/misc \
