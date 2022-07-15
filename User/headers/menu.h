@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <rtthread.h>
 
-#define MENU_PAGES 2
+#define MENU_PAGES 7
 
 extern uint8_t Menu_Index;
 
@@ -27,5 +27,3 @@ extern MenuPage Main_Menu[];
 
 void Slider_Draw(uint16_t x, uint16_t y, uint16_t ADC_Reading, uint8_t Possible_Values);
 void Initialize_Menu();
-void Draw_Menu();
-void Update_Menu();

@@ -6,6 +6,12 @@
 #include <rtthread.h>
 #include "../adc_helpers.h"
 
+/*
+ * This header file defines the register set and the operators for the YM3812.
+ *
+ * It also contains definitions for both instruments and drums.
+ *
+ */
 
 #define OPL2_NUM_CHANNELS 9
 #define CHANNELS_PER_BANK 9
@@ -182,6 +188,9 @@ void setDeepVibrato(bool enable);
 void setPercussion(bool enable);
 void setDrums(byte drums);
 void setWaveForm(byte channel, byte operatorNum, byte waveForm);
+
+void YM3812_Write_Wrapper(int argc, char** argv);
+void YM3812_Test_Sequence(void);
 
 void MIDI_Note_On(uint8_t note, uint8_t velocity);
 void MIDI_Note_Off(uint8_t note);

@@ -4,8 +4,14 @@
 #include "adc_helpers.h"
 #include <rtthread.h>
 
+// buttons are active low with internal pull-ups
 #define BUTTON_PRESSED 0
 #define BUTTON_UP 1
+
+// the value of the ADC needs to change by 25 in order to call the interrupt
+// this value is experimentally determined and for better/smaller potentiometers
+// it can be lowered for accuracy, however since the YM3812 has mostly 4 bit registers,
+// in this case it's not needed at all
 #define POTENTIOMETER_INTERRUPT_DIFFERENCE 25
 
 extern uint16_t pot1Val;
@@ -41,3 +47,6 @@ void Inputs_Init();
 void Read_Potentiometers();
 void Read_Buttons();
 void Poll_Inputs();
+
+void Read_Potentiometers_Debug();
+void Read_Buttons_Debug();

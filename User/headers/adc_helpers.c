@@ -36,6 +36,7 @@ void ADC_Function_Init(void){
     ADC_BufferCmd(ADC1, ENABLE);                                        // enable buffer
 }
 
+// calibration function as per official WCH example code
 uint16_t Apply_Calibration_Offset(uint16_t val)
 {
     if((val + calibrationVal)<0) return 0;
@@ -43,6 +44,8 @@ uint16_t Apply_Calibration_Offset(uint16_t val)
     return (val + calibrationVal);
 }
 
+
+// simple, single-shot single-channel ADC conversion, contains max cycle count, so it's slow but accurate
 uint16_t Get_ADC_Val(uint8_t ADC_Input_Channel)
 {
     uint16_t val;
@@ -60,6 +63,7 @@ uint16_t Get_ADC_Val(uint8_t ADC_Input_Channel)
     return val;
 }
 
+// convert the ADC result to voltage, useful for analog sensors
 float ADC_to_Voltage(uint16_t ADC_Result){
     return (float)(ADC_Result) / ADC_RESOLUTION * ADC_REFERENCE;
 }

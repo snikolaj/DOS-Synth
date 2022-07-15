@@ -3,10 +3,11 @@
 #define GPIO_PIN_RESET 0
 #define GPIO_PIN_SET 1
 
+// IMPLEMENTATION WRAPPER FUNCTIONS FOR THE STM32 HAL
+
 uint16_t ILI9341_SPI_PORT = 0;
 uint16_t HAL_MAX_DELAY = 0;
 
-// IMPLEMENTATION WRAPPER FUNCTIONS FOR THE STM32 HAL
 
 void ILI9341_GPIO_Init(){
     GPIO_InitTypeDef GPIO_InitStructure = {0};
@@ -54,7 +55,7 @@ void ILI9341_SPI_Init(){
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
 
-    // initializing SPI
+    // initializing SPI as regular, software controlled, full duplex, 8 bit MSB first SPI
 
     SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
 
@@ -72,6 +73,7 @@ void ILI9341_SPI_Init(){
     SPI_Cmd(SPI1, ENABLE);
 }
 
+// transmit an array of bytes with known length, named as such for STM32 compatibility
 void HAL_SPI_Transmit(uint16_t *discard1, uint8_t *data, uint16_t data_length, uint16_t discard){
     for(uint16_t i = 0; i < data_length; i++){
         startloop:
@@ -307,7 +309,7 @@ void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
     ILI9341_Unselect();
 }
 
-static void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
+void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
     uint32_t i, b, j;
 
     ILI9341_SetAddressWindow(x, y, x+font.width-1, y+font.height-1);

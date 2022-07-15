@@ -27,7 +27,7 @@
 #define ILI9341_LED_GPIO_Port GPIOA
 
 
-// default orientation
+// uncomment specific defines to change orientation
 /*
 #define ILI9341_WIDTH  240
 #define ILI9341_HEIGHT 320
@@ -86,6 +86,7 @@ void ILI9341_Unselect();
 
 void ILI9341_Init(void);
 void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color);
+void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor);
 void ILI9341_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor);
 void ILI9341_WriteString_Horizontal(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor);
 void ILI9341_WriteString_Horizontal_Backwards(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor);

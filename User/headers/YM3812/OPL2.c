@@ -1,3 +1,14 @@
+/*
+ * This project uses a heavily modified version of the OPL2 for Arduino library,
+ * mostly using it for avoiding the tedious and repetitive work of defining each register
+ * and its associated bitfields. The full possibilities of the library aren't used here, however
+ * other functionality is added at the bottom of the library.
+ */
+
+
+
+
+
 /**
  * ________ __________.____    ________      _____            .___.__         .____    ._____.
  * \_____  \\______   \    |   \_____  \    /  _  \  __ __  __| _/|__| ____   |    |   |__\_ |__
@@ -1080,6 +1091,27 @@ void setWaveForm(byte channel, byte operatorNum, byte waveForm) {
     setOperatorRegister(0xE0, channel, operatorNum, value + (waveForm & 0x07));
 }
 
+void YM3812_Write_Wrapper(int argc, char** argv){
+    YM3812_Write(atoi(argv[1]), atoi(argv[2]));
+}
+
+void YM3812_Test_Sequence(void){
+    YM3812_Reset(GPIOE, GPIO_Pin_4);
+    YM3812_Write(0x20, 0x01);
+    YM3812_Write(0x40, 0x10);
+    YM3812_Write(0x60, 0xF0);
+    YM3812_Write(0x80, 0x77);
+    YM3812_Write(0xA0, 0x98);
+    YM3812_Write(0x23, 0x01);
+    YM3812_Write(0x43, 0x00);
+    YM3812_Write(0x63, 0xF0);
+    YM3812_Write(0x83, 0x77);
+    YM3812_Write(0xB0, 0x31);
+}
+
+
+
+// MIDI handlers to be attached to their respective function pointers
 void MIDI_Note_On(uint8_t note, uint8_t velocity){
     for (uint8_t i = 0; i < OPL2_NUM_CHANNELS; i++) {
         // if the associated note position is off, fill it up
@@ -1089,6 +1121,10 @@ void MIDI_Note_On(uint8_t note, uint8_t velocity){
             noteOn[i] = true;
 
             notesPlayed++;
+
+            // the YM3812 is often annoyingly high-pitched, that is fixed by just
+            // lowering the octaves by 2
+            // remove for a more authentic experience
 
             playNote(i, note / 12 - 2, note % 12);
 

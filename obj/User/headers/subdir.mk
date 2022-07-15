@@ -8,24 +8,21 @@ C_SRCS += \
 ../User/headers/adc_helpers.c \
 ../User/headers/analog_sensors.c \
 ../User/headers/inputs.c \
-../User/headers/menu.c \
-../User/headers/nrf24.c 
+../User/headers/menu.c 
 
 OBJS += \
 ./User/headers/MIDI.o \
 ./User/headers/adc_helpers.o \
 ./User/headers/analog_sensors.o \
 ./User/headers/inputs.o \
-./User/headers/menu.o \
-./User/headers/nrf24.o 
+./User/headers/menu.o 
 
 C_DEPS += \
 ./User/headers/MIDI.d \
 ./User/headers/adc_helpers.d \
 ./User/headers/analog_sensors.d \
 ./User/headers/inputs.d \
-./User/headers/menu.d \
-./User/headers/nrf24.d 
+./User/headers/menu.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

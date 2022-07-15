@@ -193,3 +193,17 @@ void Poll_Inputs(){
 
     //rt_kprintf("P1: %d, P2: %d, P3: %d, P4: %d, B1: %d, B2: %d\r\n", pot1Val, pot2Val, pot3Val, pot4Val, buttonLeft, buttonRight);
 }
+
+// debug functions to make life easier if errors are encountered
+void Read_Potentiometers_Debug(){
+    Read_Potentiometers();
+    printf("Potentiometer 1: %d\r\n", pot1Val);
+    printf("Potentiometer 2: %d\r\n", pot2Val);
+    printf("Potentiometer 3: %d\r\n", pot3Val);
+    printf("Potentiometer 4: %d\r\n", pot4Val);
+}
+
+void Read_Buttons_Debug(){
+    printf("Left button value: %d\r\n", buttonLeft);
+    printf("Right button value: %d\r\n", buttonRight);
+}
