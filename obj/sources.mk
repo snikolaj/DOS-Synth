@@ -24,7 +24,6 @@ C_DEPS :=
 SUBDIRS := \
 Core \
 Debug \
-NetLib \
 Peripheral/src \
 Startup \
 User \

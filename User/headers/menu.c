@@ -28,15 +28,15 @@ void Slider_Draw(uint16_t x, uint16_t y, uint16_t ADC_Reading, uint8_t Possible_
     // fill the area with black to make sure that nothing from previous draws remains
     ILI9341_FillRectangle(x - Font_7x10.width, y, Font_7x10.width * 3, Font_7x10.height * 17, ILI9341_BLACK);
     if(Possible_Values != 2){
-        ILI9341_WriteString(x - Font_7x10.width, y + Font_7x10.height * 16, itoa(clampedVal + 1, num, 10), Font_7x10, ILI9341_BLACK, DARKCYAN);
+        ILI9341_WriteString(x - Font_7x10.width, y + Font_7x10.height * 16, itoa(clampedVal + 1, num, 10), Font_7x10, ILI9341_BLACK, DOSGREEN);
     }else{
-        ILI9341_WriteString(x - Font_7x10.width, y + Font_7x10.height * 16, "true", Font_7x10, ILI9341_BLACK, DARKCYAN);
+        ILI9341_WriteString(x - Font_7x10.width, y + Font_7x10.height * 16, "true", Font_7x10, ILI9341_BLACK, DOSGREEN);
     }
 
     // draw the three bars, centered on the x
-    ILI9341_WriteString_Horizontal_Backwards(x - Font_7x10.width, y + 15 * Font_7x10.height, progressBar, Font_7x10, DARKCYAN, ILI9341_BLACK);
-    ILI9341_WriteString_Horizontal_Backwards(x, y + 15 * Font_7x10.height, progressBar, Font_7x10, DARKCYAN, ILI9341_BLACK);
-    ILI9341_WriteString_Horizontal_Backwards(x + Font_7x10.width, y + 15 * Font_7x10.height, progressBar, Font_7x10, DARKCYAN, ILI9341_BLACK);
+    ILI9341_WriteString_Horizontal_Backwards(x - Font_7x10.width, y + 15 * Font_7x10.height, progressBar, Font_7x10, DOSGREEN, ILI9341_BLACK);
+    ILI9341_WriteString_Horizontal_Backwards(x, y + 15 * Font_7x10.height, progressBar, Font_7x10, DOSGREEN, ILI9341_BLACK);
+    ILI9341_WriteString_Horizontal_Backwards(x + Font_7x10.width, y + 15 * Font_7x10.height, progressBar, Font_7x10, DOSGREEN, ILI9341_BLACK);
 }
 
 

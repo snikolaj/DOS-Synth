@@ -34,7 +34,7 @@ static struct rt_timer PollTimer;
 // ================================= FIRST MENU PAGE  ========================================
 void Draw_Operator1_Attack(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getAttack(0, OPERATOR1), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Attack", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Attack", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Attack(){
@@ -47,7 +47,7 @@ void Change_Operator1_Attack(){
 
 void Draw_Operator1_Decay(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDecay(0, OPERATOR1), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Decay", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Decay", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Decay(){
@@ -60,7 +60,7 @@ void Change_Operator1_Decay(){
 
 void Draw_Operator1_Sustain(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getSustain(0, OPERATOR1), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Sustain", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Sustain", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Sustain(){
@@ -73,7 +73,7 @@ void Change_Operator1_Sustain(){
 
 void Draw_Operator1_Release(){
     Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getRelease(0, OPERATOR1), 16);
-    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Release", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Release", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Release(){
@@ -88,7 +88,7 @@ void Change_Operator1_Release(){
 // ================================= SECOND MENU PAGE  ========================================
 void Draw_Operator2_Attack(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getAttack(0, OPERATOR2), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Attack", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Attack", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Attack(){
@@ -101,7 +101,7 @@ void Change_Operator2_Attack(){
 
 void Draw_Operator2_Decay(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDecay(0, OPERATOR2), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Decay", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Decay", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Decay(){
@@ -114,7 +114,7 @@ void Change_Operator2_Decay(){
 
 void Draw_Operator2_Sustain(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getSustain(0, OPERATOR2), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Sustain", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Sustain", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Sustain(){
@@ -127,7 +127,7 @@ void Change_Operator2_Sustain(){
 
 void Draw_Operator2_Release(){
     Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getRelease(0, OPERATOR2), 16);
-    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Release", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Release", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Release(){
@@ -142,7 +142,7 @@ void Change_Operator2_Release(){
 // ================================= THIRD MENU PAGE  ========================================
 void Draw_Operator1_Multiplier(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getMultiplier(0, OPERATOR1), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Multi", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Multi", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Multiplier(){
@@ -155,7 +155,7 @@ void Change_Operator1_Multiplier(){
 
 void Draw_Operator1_ScalingLevel(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getScalingLevel(0, OPERATOR1), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Scaling", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Scaling", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_ScalingLevel(){
@@ -168,7 +168,7 @@ void Change_Operator1_ScalingLevel(){
 
 void Draw_Operator1_MaintainSustain(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getMaintainSustain(0, OPERATOR1), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 MainSus", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 MainSus", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_MaintainSustain(){
@@ -181,7 +181,7 @@ void Change_Operator1_MaintainSustain(){
 
 void Draw_Operator1_WaveForm(){
     Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getWaveForm(0, OPERATOR1), 16);
-    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 WavForm", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 WavForm", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_WaveForm(){
@@ -196,7 +196,7 @@ void Change_Operator1_WaveForm(){
 // ================================= FOURTH MENU PAGE  ========================================
 void Draw_Operator2_Multiplier(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getMultiplier(0, OPERATOR2), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Multi", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Multi", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Multiplier(){
@@ -209,7 +209,7 @@ void Change_Operator2_Multiplier(){
 
 void Draw_Operator2_ScalingLevel(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getScalingLevel(0, OPERATOR2), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Scaling", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Scaling", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_ScalingLevel(){
@@ -222,7 +222,7 @@ void Change_Operator2_ScalingLevel(){
 
 void Draw_Operator2_MaintainSustain(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getMaintainSustain(0, OPERATOR2), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 MainSus", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 MainSus", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_MaintainSustain(){
@@ -235,7 +235,7 @@ void Change_Operator2_MaintainSustain(){
 
 void Draw_Operator2_WaveForm(){
     Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getWaveForm(0, OPERATOR2), 16);
-    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 WavForm", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 WavForm", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_WaveForm(){
@@ -250,7 +250,7 @@ void Change_Operator2_WaveForm(){
 // ================================= FIFTH MENU PAGE  ========================================
 void Draw_Operator1_Tremolo(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getTremolo(0, OPERATOR1), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Tremolo", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op1 Tremolo", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Tremolo(){
@@ -263,7 +263,7 @@ void Change_Operator1_Tremolo(){
 
 void Draw_Operator1_Vibrato(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getVibrato(0, OPERATOR1), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Vibrato", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 Vibrato", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_Vibrato(){
@@ -276,7 +276,7 @@ void Change_Operator1_Vibrato(){
 
 void Draw_Operator1_EnvelopeScaling(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getEnvelopeScaling(0, OPERATOR1), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 EnvScal", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op1 EnvScal", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator1_EnvelopeScaling(){
@@ -299,7 +299,7 @@ void Change_Operator1_Blank(){
 // ================================= SIXTH MENU PAGE  ========================================
 void Draw_Operator2_Tremolo(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getTremolo(0, OPERATOR2), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Tremolo", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Op2 Tremolo", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Tremolo(){
@@ -312,7 +312,7 @@ void Change_Operator2_Tremolo(){
 
 void Draw_Operator2_Vibrato(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getVibrato(0, OPERATOR2), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Vibrato", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 Vibrato", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_Vibrato(){
@@ -325,7 +325,7 @@ void Change_Operator2_Vibrato(){
 
 void Draw_Operator2_EnvelopeScaling(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getEnvelopeScaling(0, OPERATOR2), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 EnvScal", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Op2 EnvScal", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Operator2_EnvelopeScaling(){
@@ -348,7 +348,7 @@ void Change_Operator2_Blank(){
 // ================================= SEVENTH MENU PAGE  ========================================
 void Draw_Global_DeepTremolo(){
     Slider_Draw((ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDeepTremolo(), 16);
-    ILI9341_WriteString(0, 50 - Font_7x10.height, "Gl DeepTrem", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 50 - Font_7x10.height, "Gl DeepTrem", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Global_DeepTremolo(){
@@ -359,7 +359,7 @@ void Change_Global_DeepTremolo(){
 
 void Draw_Global_DeepVibrato(){
     Slider_Draw(2 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getDeepVibrato(), 16);
-    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl DeepVibr", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString((ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl DeepVibr", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Global_DeepVibrato(){
@@ -370,7 +370,7 @@ void Change_Global_DeepVibrato(){
 
 void Draw_Global_SynthMode(){
     Slider_Draw(3 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getSynthMode(0), 16);
-    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl SynthMod", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(2 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl SynthMod", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Global_SynthMode(){
@@ -383,7 +383,7 @@ void Change_Global_SynthMode(){
 
 void Draw_Global_Feedback(){
     Slider_Draw(4 * (ILI9341_WIDTH / 4) - (ILI9341_WIDTH / 8), 50 + Font_7x10.height, getFeedback(0), 16);
-    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl Feedback", Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(3 * (ILI9341_WIDTH / 4), 50 - Font_7x10.height, "Gl Feedback", Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Change_Global_Feedback(){
@@ -401,7 +401,7 @@ void Initialize_Menu_Pages(){
     Initialize_Menu();
 
     ILI9341_FillScreen(ILI9341_BLACK);
-    ILI9341_WriteString(0, 0, "Welcome to the YM3812 synth", Font_11x18, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, 0, "Welcome to DOS Synth", Font_11x18, ILI9341_GREEN, ILI9341_BLACK);
 
     // page 1
 
@@ -508,7 +508,7 @@ void Initialize_Menu_Pages(){
     Main_Menu[Menu_Index].Slider4_Draw();
 
     char Page_Num[] = {'M', 'e', 'n', 'u', ' ', 'P', 'a', 'g', 'e', ' ', '1' + Menu_Index, '\0'};
-    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Handle_Button_Left(){
@@ -531,7 +531,7 @@ void Handle_Button_Left(){
     Main_Menu[Menu_Index].Slider4_Draw();
 
     char Page_Num[] = {'M', 'e', 'n', 'u', ' ', 'P', 'a', 'g', 'e', ' ', '1' + Menu_Index, '\0'};
-    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 void Handle_Button_Right(){
@@ -554,7 +554,7 @@ void Handle_Button_Right(){
     Main_Menu[Menu_Index].Slider4_Draw();
 
     char Page_Num[] = {'M', 'e', 'n', 'u', ' ', 'P', 'a', 'g', 'e', ' ', '1' + Menu_Index, '\0'};
-    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, DARKBLUE, ILI9341_BLACK);
+    ILI9341_WriteString(0, Font_11x18.height + 5, Page_Num, Font_7x10, ILI9341_GREEN, ILI9341_BLACK);
 }
 
 

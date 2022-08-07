@@ -21,7 +21,6 @@ RM := rm -rf
 -include User/subdir.mk
 -include Startup/subdir.mk
 -include Peripheral/src/subdir.mk
--include NetLib/subdir.mk
 -include Debug/subdir.mk
 -include Core/subdir.mk
 -include subdir.mk
@@ -63,7 +62,7 @@ all: RT-Thread_test-1.elf secondary-outputs
 
 # Tool invocations
 RT-Thread_test-1.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\MRS_DATA\workspace\RT-Thread_test-1\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -L"C:\MRS_DATA\workspace\RT-Thread_test-1\NetLib" -Wl,-Map,"RT-Thread_test-1.map" --specs=nano.specs --specs=nosys.specs -o "RT-Thread_test-1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\MRS_DATA\workspace\RT-Thread_test-1\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"RT-Thread_test-1.map" --specs=nano.specs --specs=nosys.specs -o "RT-Thread_test-1.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
 RT-Thread_test-1.hex: RT-Thread_test-1.elf
 	@	riscv-none-embed-objcopy -O ihex "RT-Thread_test-1.elf"  "RT-Thread_test-1.hex"

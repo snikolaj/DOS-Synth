@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <rtthread.h>
 
-
+// code from MIT-licensed library https://github.com/afiskon/stm32-ili9341
 
 #define ILI9341_MADCTL_MY  0x80
 #define ILI9341_MADCTL_MX  0x40
@@ -71,7 +71,7 @@
 #define DARKBLUE        0x0176
 #define PURPLE          0x501F
 #define DARKCYAN        0x0596
-
+#define DOSGREEN        0x0400
 
 
 // ADDED FOR STM32 COMPATIBILITY
